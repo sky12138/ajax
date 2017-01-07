@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.addgoods{
+				width: 100%;
+				background-color: goldenrod;
+			}
+			#oList{
+				list-style-type: none;
+				width: 100%;
+				background-color: greenyellow;
+				
+			}
+			#oList li{
+				width: 100%;
+				margin-top: 20px;
+				display: flex;
+				justify-content: space-around;
+			}
+			#oList li div{
+				width: 150px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="addgoods">
+			<p>
+				添加商品
+			</p>
+			<label for="name">商品名：</label>
+			<input type="text" id="name" placeholder="请输入商品名" />
+			<label for="pri">价格：</label>
+			<input type="text" id="pri" placeholder="请输入价格" />
+			<label for="time">入库时间：</label>
+			<input type="text" id="time" placeholder="请输入时间" />
+			<label for="content">详情：</label>
+			<input type="text" id="content" placeholder="请输入商品详情" />
+			<label for="goodscol">备注：</label>
+			<input type="text" id="goodscol" placeholder="备注" />
+			<input type="button" value="提交并更新商品列表" id="gx" style="display: none;"/>
+		</div>
+		<input type="button" value="获取商品列表" id="submit"/>
+		
+		<ul id="oList"></ul>
+		
+		<script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+		<!--JQ的ajax请求-->
+		<script type="text/javascript" src="js/ajax.js"></script>
+	</body>
+</html>
