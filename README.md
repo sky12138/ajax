@@ -1,3 +1,4 @@
+*本库中的ajax请求是基于node.js和mysql数据为基础进行编写的
 ##1.ajax简介
 AJAX即“Asynchronous Javascript And XML”（异步JavaScript和XML），是指一种创建交互式网页应用的网页开发技术。
 AJAX = 异步 JavaScript和XML（标准通用标记语言的子集）。
