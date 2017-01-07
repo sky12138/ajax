@@ -62,3 +62,129 @@ AJAX 是一种用于创建快速动态网页的技术。
 　　header( "Access-Control-Allow-Methods:POST,GET" );
 
 具体用法可以查看本库中server.js的后台代码 或者点击——》https://github.com/sky12138/ajax/blob/master/server.js
+***
+
+##下面我们将讲讲各种框架的ajax请求
+
+###js的ajax请求
+####第一步
+创建 XHR 对象可以直接实例化 XMLHttpRequest 。
+`function createXHR() {
+	if (window.XMLHttpRequest) { //IE7+, FF, 谷歌...
+		return new XMLHttpRequest();
+	}
+	//IE6-
+	return new ActiveXObject("Microsoft.XMLHTTP");
+}
+var xhr = new  createXHR() ；`
+
+####第二步
+open()方法:
+它接受三个参数：要发送的请求类型(get、post)、请求的 URL 和表示是否异步
+xhr.open('get', 'demo.json', false);  //对于demo.json 的 get 请求，false表示同步
+
+####第三步
+send()方法:
+向服务器发送请求
+open()方法并不会真正发送请求，而是准备好需要发送给服务器的内容。我们需要通过send()方法向服务器发送请求
+send()方法接受一个参数，作为请求体发送的数据。如果是get方式请求则填 null。
+`xhr.send(null); `
+
+####第四步
+设置回调函数
+//监听状态改变
+`xhr.onreadystatechange = function () {
+     if(xhr.readyState==4 && xhr.status ==200){
+//接受请求回来的数据
+var dataList = JSON.parse(xhr.responseText);
+      } else {
+             alert('数据返回失败！状态代码：' + xhr.status + '状态信息：'+ xhr.statusText);
+      }
+      
+};`
+
+例题可以参考本库中的js—ajax文件夹，或者点击https://github.com/sky12138/ajax/tree/master/JS_ajax
+
+###JQ的ajax请求
+####1.load() 方法
+Query load() 方法是简单但强大的 AJAX 方法。
+load() 方法从服务器加载数据，并把返回的数据放入被选元素中。
+语法：
+$(selector).load(URL,data,callback);
+必需的 URL 参数规定您希望加载的 URL。
+可选的 data 参数规定与请求一同发送的查询字符串键/值对集合。
+可选的 callback 参数是 load() 方法完成后所执行的函数名称。
+
+也可以把 jQuery 选择器添加到 URL 参数。
+下面的例子把 "demo_test.txt" 文件中 id="p1" 的元素的内容，加载到指定的 <div> 元素中：
+实例
+$("#div1").load("demo_test.txt #p1");
+
+可选的 callback 参数规定当 load() 方法完成后所要允许的回调函数。回调函数可以设置不同的参数：
+  ● responseTxt - 包含调用成功时的结果内容
+  ● statusTXT - 包含调用的状态  success    error
+  ● xhr - 包含 XMLHttpRequest 对象
+
+####2.jQuery get() 和 post() 方法
+HTTP 请求：GET vs. POST
+两种在客户端和服务器端进行请求-响应的常用方法是：GET 和 POST。
+  ● GET - 从指定的资源请求数据
+  ● POST - 向指定的资源提交要处理的数据
+GET 基本上用于从服务器获得（取回）数据。注释：GET 方法可能返回缓存数据。
+POST 也可用于从服务器获取数据。不过，POST 方法不会缓存数据，并且常用于连同请求一起发送数据。
+
+
+####jQuery $.get() 方法
+$.get() 方法通过 HTTP GET 请求从服务器上请求数据。
+语法：
+$.get(URL,callback);
+必需的 URL 参数规定您希望请求的 URL。
+可选的 callback 参数是请求成功后所执行的函数名。callback(data,status)
+下面的例子使用 $.get() 方法从服务器上的一个文件中取回数据：
+实例
+$("button").click(function(){
+  $.get("demo_test.asp",function(data,status){
+    alert("Data: " + data + "\nStatus: " + status);
+  });
+});
+
+
+####jQuery $.post() 方法
+$.post() 方法通过 HTTP POST 请求从服务器上请求数据。
+语法：
+$.post(URL,data,callback);
+必需的 URL 参数规定您希望请求的 URL。
+可选的 data 参数规定连同请求发送的数据。
+可选的 callback 参数是请求成功后所执行的函数名。
+下面的例子使用 $.post() 连同请求一起发送数据：
+实例
+$("button").click(function(){
+  $.post("demo_test_post.asp",
+  {
+    name:"Donald Duck",
+    city:"Duckburg"
+  },
+  function(data,status){
+    alert("Data: " + data + "\nStatus: " + status);
+  });
+});
+$.post() 的第一个参数是我们希望请求的 URL ("demo_test_post.asp")。
+然后我们连同请求（name 和 city）一起发送数据。
+"demo_test_post.asp" 中的 ASP 脚本读取这些参数，对它们进行处理，然后返回结果。
+第三个参数是回调函数。第一个回调参数存有被请求页面的内容，而第二个参数存有请求的状态。
+
+
+####3.ajax() 方法
+语法
+jQuery.ajax([settings])
+
+eg:
+$.ajax({
+  url: url,                 //请求的地址
+  type：“GET/POST”，//请求的方式
+  dataType: 'json',  //预期服务器返回的数据类型
+  data: data,           //发送到服务器的数据
+  success: callback  //成功后的回掉函数
+});
+参数描述settings可选。用于配置 Ajax 请求的键值对集合。
+可以通过 $.ajaxSetup() 设置任何选项的默认值。
